@@ -1,37 +1,46 @@
 import React, { useEffect, useState } from "react";
-
+import axios from 'axios';
 
 const App = () => {
   
-  const [users, setUsers] = useState([])
-
-  const fetchUserData = () => {
-    fetch("https://api.coingecko.com/api/v3/coins/list?include_platform=true")
-      .then(response => {
-        return response.json()
+ const [data, setData] = useState('');
+ const HandleClick = () => {
+  console.log(data)
+ }
+  
+  const getAllData = () => {
+    axios
+      .get("https://api.coingecko.com/api/v3/coins/markets?vs_currency=USD&order=market_cap_desc&per_page=100&page=1&sparkline=false&locale=en")
+      .then((response) => {
+        console.log(response.data);
+        setData(response.data);
       })
-      .then(data => {
-        setUsers(data)
-      })
-     
+      .catch((error) => {
+        console.log(error);
+      });
   }
   useEffect(() => {
-    fetchUserData()
-  }, [])
-  //console.log(data)
+    getAllData();
+  }, []);
+
   return (
     <div className="App">
-       {users.length > 0 && (
-        <ul>
-          {users.map(user => (
-            <li key={user.id}>{user.name}{user.symbol}</li>
-          ))}
-        </ul>
-      )}
-    
+      
+      {data ?
+        data.map(data => {
+          return (
+            <button onClick={HandleClick() }>coin</button>
+          )
+        }) : <form>
+          <div></div>
+        </form>}
+
     </div>
   );
+      
 }
 
+
 export default App;
+
 
