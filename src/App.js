@@ -4,10 +4,10 @@ import axios from 'axios';
 
 const App = () => {
   const [data, setData] = useState([]);
-
+  
   const getAllData = () => {
     axios
-      .get("https://api.coingecko.com/api/v3/coins/markets?vs_currency=pkr&order=market_cap_desc&per_page=100&page=1&sparkline=false&locale=en")
+      .get("https://api.coingecko.com/api/v3/coins/markets?vs_currency=PKR&order=market_cap_desc&per_page=100&page=1&sparkline=false&locale=e")
       .then((response) => {
         console.log(response.data);
         setData(response.data);
@@ -31,7 +31,6 @@ const App = () => {
                     >
                       Logo
                     </th>
-
                     <th
                       scope="col"
                       className="px-6 py-3 text-xs font-bold text-left text-gray-500 uppercase "
@@ -53,7 +52,13 @@ const App = () => {
                     <th
                       scope="col"
                       className="px-6 py-3 text-xs font-bold text-right text-gray-500 uppercase "
-                    >vs_currency
+                    >current_Price
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-6 py-3 text-xs font-bold text-right text-gray-500 uppercase "
+                    >
+                     vs_currency
                     </th>
                     <th
                       scope="col"
@@ -70,7 +75,7 @@ const App = () => {
 
                       <tbody className="divide-y divide-gray-200">
                         <tr>
-                          <td className="px-0 py-0 text-sm font-medium text-right whitespace-nowrap rounded-full h-32 w-32">
+                          <td className="px-0 py-0 text-sm font-medium text-right whitespace-nowrap rounded-full h-2 w-2">
                             <img src={coin.image} alt={coin.public_id}>
                             </img>
                           </td>
@@ -85,13 +90,12 @@ const App = () => {
                           </td>
                           <td className="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
                             <div className="relative w-full lg:max-w-sm">
+                              {coin.current_price}
+                            </div>
+                          </td>
+                          <td className="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
+                            <div className="relative w-full lg:max-w-sm">
                               {coin.vs_currency}
-                              <select className="w-full p-2.5 text-gray-500 bg-white border rounded-md shadow-sm outline-none appearance-none focus:border-indigo-600">
-                                <option>prk</option>
-                                <option>jpy</option>
-                                <option>eur</option>
-                                <option>usd</option>
-                              </select>
                             </div>
                           </td>
                           <td className="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
@@ -115,67 +119,6 @@ const App = () => {
       </div>
     )
   }
-  // const displayData = () => {
-  //   return (
-
-  //     data.map((coin) => {
-  //       return (
-  // <div className="flex flex-col">
-  //   <div className="overflow-x-auto">
-  //     <div className="p-1.5 w-full inline-block align-middle">
-  //       <div className="overflow-hidden border rounded-lg">
-  //         <table className="min-w-full divide-y divide-gray-200">
-  //           <thead className="bg-gray-50">
-  //             <tr>
-  //             <th
-  //                 scope="col"
-  //                 className="px-6 py-3 text-xs font-bold text-left text-gray-500 uppercase "
-  //               >
-  //                 Logo
-  //               </th>
-  //               <th
-  //                 scope="col"
-  //                 className="px-6 py-3 text-xs font-bold text-left text-gray-500 uppercase "
-  //               >
-  //                 ID
-  //               </th>
-  //               <th
-  //                 scope="col"
-  //                 className="px-6 py-3 text-xs font-bold text-left text-gray-500 uppercase "
-  //               >
-  //                 Name
-  //               </th>
-  //               <th
-  //                 scope="col"
-  //                 className="px-6 py-3 text-xs font-bold text-left text-gray-500 uppercase "
-  //               >
-  //                 symbol
-  //               </th>
-  //               <th
-  //                 scope="col"
-  //                 className="px-6 py-3 text-xs font-bold text-right text-gray-500 uppercase "
-  //               >vs_currency
-  //               </th>
-  //               <th
-  //                 scope="col"
-  //                 className="px-6 py-3 text-xs font-bold text-right text-gray-500 uppercase "
-  //               >
-  //                 price_change_24h 
-  //               </th>
-  //             </tr>
-  //           </thead>
-  // 
-  //         </table>
-  //       </div>
-  //     </div>
-  //   </div>
-  // </div>
-  //       );
-  //     }
-  //     ))
-  // }
-
-
   return (
     <>
       <button class="hover:bg-violet-600 active:bg-violet-700 focus:outline-none focus:ring focus:ring-violet-300 ..."
