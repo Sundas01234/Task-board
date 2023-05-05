@@ -1,25 +1,22 @@
+
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 
  function Page2() {
   const [search, setSearch] = useState("pune");
-  const [weatherData, setWeatherData] = useState({});
-  const [loading, setLoading] = useState(false);
+  const [CoinData, setCoinData] = useState({});
   const getData = () => {
-    setLoading(true);
     axios
       .get(
-        `https://api.coingecko.com/api/v3/search?query=btc`
+        `https://api.coingecko.com/api/v3/search?query=btc=${search}`
       )
       .then(response => {
-        setWeatherData(response.data);
-        setLoading(false);
+        setCoinData(response.data);
+        //console.log(response)
       })
-      .catch(error => {
-        setLoading(false);
-        console.log("error", error);
-      });
+      
+      
   };
   useEffect(() => {
     getData();
@@ -31,14 +28,18 @@ import axios from "axios";
           className="form-control w-50"
           type="text"
           onBlur={e => setSearch(e.target.value)}
-          placeholder="search Coin"
+          placeholder="search"
         />
 
         <button onClick={getData}>Search</button>
       </div>
+
+       <div>
+        <h2>{CoinData.name} </h2>
+       </div>
     </>
   );
 }
 
 export default Page2
-//https://api.coingecko.com/api/v3/search?query=btc
+// //https://api.coingecko.com/api/v3/search?query=btc
