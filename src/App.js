@@ -1,37 +1,22 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
+import Page1 from "./Components/Page1"
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
+import Header from "./Components/Header";
 
-const App = () => {
-  
-  const [users, setUsers] = useState([])
-
-  const fetchUserData = () => {
-    fetch("https://api.coingecko.com/api/v3/coins/list?include_platform=true")
-      .then(response => {
-        return response.json()
-      })
-      .then(data => {
-        setUsers(data)
-      })
-     
-  }
-  useEffect(() => {
-    fetchUserData()
-  }, [])
-  //console.log(data)
+function App() {
   return (
-    <div className="App">
-       {users.length > 0 && (
-        <ul>
-          {users.map(user => (
-            <li key={user.id}>{user.name}{user.symbol}</li>
-          ))}
-        </ul>
-      )}
-    
+    <BrowserRouter>
+    <div className="App" style={{ backgroundImage: "url(./circle.jpg)" }}>
+      <Header />
+      <Routes>
+        <Route exact path="/Page1" element={<Page1/>} />
+        
+       
+      </Routes>
     </div>
+  
+  </BrowserRouter>
   );
 }
-
 export default App;
-
